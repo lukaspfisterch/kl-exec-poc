@@ -1,0 +1,37 @@
+{
+  "operations": [
+    {
+      "key": "text.simplify",
+      "kind": "text_simplify",
+      "logical_binding": "application.domain.text",
+      "constraints": "Input is plain text, output is simplified plain text.",
+      "policy": {
+        "allow_network": false,
+        "allow_filesystem": false,
+        "timeout_seconds": 5
+      }
+    },
+    {
+      "key": "text.llm_stub",
+      "kind": "llm_stub",
+      "logical_binding": "application.domain.text.llm_stub",
+      "constraints": "Input is plain text, output is a stubbed LLM-style transformation (deterministic for a given mode).",
+      "policy": {
+        "allow_network": false,
+        "allow_filesystem": false,
+        "timeout_seconds": 5
+      }
+    },
+    {
+      "key": "signals.smooth",
+      "kind": "signals_smooth",
+      "logical_binding": "foundations.signals.smoothing",
+      "constraints": "Input: 1D scalar series, length <= 10_000. Output: 1D scalar series of the same length. Deterministic three point moving average.",
+      "policy": {
+        "allow_network": false,
+        "allow_filesystem": false,
+        "timeout_seconds": 5
+      }
+    }
+  ]
+}

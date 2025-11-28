@@ -2,17 +2,17 @@
 Config schemas for the KL Execution PoC.
 
 These are simple data structures that can be populated from
-static files (for example JSON or YAML) in later stages.
+static files (for example JSON) and then mapped to KL primitives.
 """
 
 from dataclasses import dataclass
-from typing import Dict, Optional
+from typing import Optional
 
 
 @dataclass
-class PolicyConfig:
+class OperationPolicyConfig:
     """
-    High level policy configuration for an operation class.
+    High level policy configuration for a single operation.
 
     This is a coarse grained view. The technical details are
     still handled by the KL ExecutionPolicy once mapped.
@@ -26,18 +26,12 @@ class PolicyConfig:
 @dataclass
 class OperationConfig:
     """
-    Logical description of an operation entry in the registry.
+    Logical description of an operation entry in the registry,
+    including a simple policy configuration.
     """
 
     key: str
+    kind: str
     logical_binding: str
-    constraints: Optional[str] = None
-
-
-@dataclass
-class RegistryConfig:
-    """
-    Container for all operation configurations in a registry.
-    """
-
-    operations: Dict[str, OperationConfig]
+    constraints: Optional[str]
+    policy: OperationPolicyConfig

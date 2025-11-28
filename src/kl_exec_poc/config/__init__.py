@@ -1,11 +1,18 @@
 """
 Configuration helpers for the KL Execution PoC.
+
+Provides:
+- config schemas
+- JSON loader
+- helpers to build a registry and policy map from config
 """
 
-from .schemas import PolicyConfig, OperationConfig, RegistryConfig
+from .schemas import OperationPolicyConfig, OperationConfig
+from .loader import load_config, build_registry_and_policies
 
 __all__ = [
-    "PolicyConfig",
+    "OperationPolicyConfig",
     "OperationConfig",
-    "RegistryConfig",
+    "load_config",
+    "build_registry_and_policies",
 ]

@@ -1,0 +1,93 @@
+1. Ins PoC-Repo wechseln und venv aktivieren / neu anlegen
+cd C:\Dev\github_based\kl-exec-poc
+
+
+Wenn .venv noch existiert:
+
+.\.venv\Scripts\Activate.ps1
+
+
+Falls .venv weg ist oder defekt:
+
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+
+
+Optional pip-Update:
+
+python -m pip install --upgrade pip
+
+2. PoC + Foundations installieren
+
+Im aktiven venv:
+
+pip install -e .[dev]
+
+
+Erwartung:
+
+pip klont kl-kernel-logic kurz in ein Temp-Verzeichnis
+
+findet dort pyproject.toml
+
+baut und installiert kl-kernel-logic
+
+installiert danach kl-exec-poc im Editable-Modus
+
+Wenn das durchläuft, hast du:
+
+kl_kernel_logic als importierbares Paket
+
+kl_exec_poc als Editable im venv
+
+3. Schnelltest: Import und Beispielkette
+
+Im gleichen venv:
+
+python -c "import kl_kernel_logic as kl; print(kl.Kernel)"
+
+
+Erwartung: irgendeine <class 'kl_kernel_logic.kernel.Kernel'> Ausgabe, kein Fehler.
+
+Dann den PoC testen:
+
+python -c "from kl_exec_poc.examples import run_simple_chain; print(run_simple_chain('  DummDidum  '))"
+
+
+Erwartung: ein Dict mit Struktur:
+
+{
+  'psi': {..., 'logical_binding': 'application.domain.text', ...},
+  'execution': {
+      'result': 'DummDiDumm',
+      'trace': [...]
+  }
+}
+
+
+Wenn das kommt, ist:
+
+Registry
+
+Orchestrator
+
+KL-Bridge
+
+KL-Kernel-Logic Foundations
+
+end-to-end funktionsfähig.
+
+4. Test-Suite laufen lassen
+python -m pytest
+
+
+Erwartung:
+
+test_registry.py
+
+test_orchestrator_flow.py
+
+laufen grün durch. Damit ist PoC 0.1.0 strukturell validiert.
+
+
+

@@ -3,7 +3,7 @@ Very small LLM like stub.
 
 This is not a real language model. It is a controlled component that
 simulates an external text generation system so that the PoC can exercise
-nondeterministic style operations without depending on a real model.
+LLM style operations without depending on a real model.
 """
 
 from dataclasses import dataclass
@@ -48,3 +48,20 @@ class LLMStub:
             "prompt": prompt,
             "output": text,
         }
+
+
+# Module level instance and helper for KL tasks
+
+
+_default_stub = LLMStub()
+
+
+def llm_stub_generate(prompt: str) -> str:
+    """
+    Helper used as a task in KL operations.
+
+    Returns only the generated text, so that from the KL perspective
+    this behaves like a simple text transform operation.
+    """
+    result = _default_stub.generate(prompt=prompt)
+    return result["output"]
