@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "kl-exec-poc"
+version = "0.1.0"
+description = "KL Execution PoC 0.1.0 built on the KL Kernel Logic foundations."
+authors = [
+  { name = "Lukas Pfister" }
+]
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+  "kl-kernel-logic @ git+https://github.com/lukaspfisterch/kl-kernel-logic.git"
+]
+
+[project.optional-dependencies]
+dev = ["pytest"]
